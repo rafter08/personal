@@ -33,9 +33,7 @@ router.post(
         password,
       });
 
-      user.referralCode = await User.generateUniqueReferralCode();
      
-
       if (referralCode) {
         const referrer = await User.findOne({ referralCode });
         if (referrer) {
