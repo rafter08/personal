@@ -46,28 +46,28 @@ const Admin = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem("token");
-      const usersResponse = await axios.get("http://localhost:5000/api/admin/users", {
+      const usersResponse = await axios.get("https://personal-jpgy.onrender.com/api/admin/users", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUsers(usersResponse.data);
 
-      const plansResponse = await axios.get("http://localhost:5000/api/admin/plans", {
+      const plansResponse = await axios.get("https://personal-jpgy.onrender.com/api/admin/plans", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPlans(plansResponse.data);
 
-      const withdrawalsResponse = await axios.get("http://localhost:5000/api/admin/withdrawals", {
+      const withdrawalsResponse = await axios.get("https://personal-jpgy.onrender.com/api/admin/withdrawals", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setWithdrawals(withdrawalsResponse.data);
 
-      const statsResponse = await axios.get("http://localhost:5000/api/admin/stats", {
+      const statsResponse = await axios.get("https://personal-jpgy.onrender.com/api/admin/stats", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setStats(statsResponse.data);
 
       if (activeTab === "audit") {
-        const auditResponse = await axios.get("http://localhost:5000/api/admin/audit-logs", {
+        const auditResponse = await axios.get("https://personal-jpgy.onrender.com/api/admin/audit-logs", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setAuditLogs(auditResponse.data);
@@ -93,7 +93,7 @@ const Admin = () => {
     const loginToast = toast.info("Logging in...", { autoClose: false });
 
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/admin-login", {
+      const response = await axios.post("https://personal-jpgy.onrender.com/api/auth/admin-login", {
         email,
         password,
       });
@@ -137,7 +137,7 @@ const Admin = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.put(
-        `http://localhost:5000/api/admin/users/${editingUser._id}`,
+        `https://personal-jpgy.onrender.com/api/admin/users/${editingUser._id}`,
         userEditData,
         { headers: { Authorization: `Bearer ${token}` } },
       );
@@ -155,7 +155,7 @@ const Admin = () => {
     if (window.confirm("Are you sure you want to delete this user?")) {
       try {
         const token = localStorage.getItem("token");
-        await axios.delete(`http://localhost:5000/api/admin/users/${userId}`, {
+        await axios.delete(`https://personal-jpgy.onrender.com/api/admin/users/${userId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUsers(users.filter((u) => u._id !== userId));
@@ -190,7 +190,7 @@ const Admin = () => {
      Object.keys(payload).forEach((key) => payload[key] === undefined && delete payload[key]);
   
       const response = await axios.put(
-        `http://localhost:5000/api/admin/plans/${editingPlan._id}`,
+        `https://personal-jpgy.onrender.com/api/admin/plans/${editingPlan._id}`,
         payload,
         { headers: { Authorization: `Bearer ${token}` } },
       );
@@ -210,7 +210,7 @@ const Admin = () => {
     if (window.confirm("Are you sure you want to delete this plan?")) {
       try {
         const token = localStorage.getItem("token");
-        await axios.delete(`http://localhost:5000/api/admin/plans/${planId}`, {
+        await axios.delete(`https://personal-jpgy.onrender.com/api/admin/plans/${planId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setPlans(plans.filter((p) => p._id !== planId));
@@ -225,12 +225,12 @@ const Admin = () => {
   const handleApproveWithdrawal = async (withdrawalId) => {
     try {
       await axios.post(
-        `http://localhost:5000/api/admin/withdrawals/${withdrawalId}/approve`,
+        `https://personal-jpgy.onrender.com/api/admin/withdrawals/${withdrawalId}/approve`,
         { status: "approved" },
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } },
       );
       const withdrawalsResponse = await axios.get(
-        "http://localhost:5000/api/admin/withdrawals",
+        "https://personal-jpgy.onrender.com/api/admin/withdrawals",
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } },
       );
       setWithdrawals(withdrawalsResponse.data);
@@ -245,13 +245,13 @@ const Admin = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        `http://localhost:5000/api/admin/withdrawals/${withdrawalId}/reject`,
+        `https://personal-jpgy.onrender.com/api/admin/withdrawals/${withdrawalId}/reject`,
         {},
         { headers: { Authorization: `Bearer ${token}` } },
       );
       if (response.status === 200 || response.status === 201) {
         const withdrawalsResponse = await axios.get(
-          "http://localhost:5000/api/admin/withdrawals",
+          "https://personal-jpgy.onrender.com/api/admin/withdrawals",
           { headers: { Authorization: `Bearer ${token}` } },
         );
         setWithdrawals(withdrawalsResponse.data);
@@ -276,7 +276,7 @@ const Admin = () => {
   const handleViewDetails = async (type, id) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(`http://localhost:5000/api/admin/${type}s/${id}`, {
+      const response = await axios.get(`https://personal-jpgy.onrender.com/api/admin/${type}s/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setSelectedDetail(response.data);

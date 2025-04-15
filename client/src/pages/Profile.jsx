@@ -33,19 +33,19 @@ const Profile = () => {
     setLoading(true);
     try {
       const [plansResponse, walletResponse, referralsResponse, milestonesResponse] = await Promise.all([
-        axios.get("http://localhost:5000/api/plans/user", {
+        axios.get("https://personal-jpgy.onrender.com/api/plans/user", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }).catch(() => ({ data: [] })),
-        axios.get("http://localhost:5000/api/wallet", {
+        axios.get("https://personal-jpgy.onrender.com/api/wallet", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }).catch(() => ({ data: { totalEarnings: 0, balance: 0, withdrawable: 0, transactions: [] } })),
-        axios.get("http://localhost:5000/api/referrals", {
+        axios.get("https://personal-jpgy.onrender.com/api/referrals", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }).catch((err) => {
           console.error("Referral fetch failed:", err.message);
           return { data: { code: "", referredUsers: [] } };
         }),
-        axios.get("http://localhost:5000/api/referrals/milestones", {
+        axios.get("https://personal-jpgy.onrender.com/api/referrals/milestones", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }).catch(() => ({
           data: {
@@ -62,7 +62,7 @@ const Profile = () => {
 
       if (!referralsResponse.data.code && plansResponse.data.length > 0) {
         try {
-          const userResponse = await axios.get("http://localhost:5000/api/users/me", {
+          const userResponse = await axios.get("https://personal-jpgy.onrender.com/api/users/me", {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
           });
           if (userResponse.data.referralCode) {
@@ -107,21 +107,21 @@ const Profile = () => {
           const requests = [];
           if (activeTab === "wallet") {
             requests.push(
-              axios.get("http://localhost:5000/api/wallet", {
+              axios.get("https://personal-jpgy.onrender.com/api/wallet", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
               })
             );
           }
           if (activeTab === "referrals") {
             requests.push(
-              axios.get("http://localhost:5000/api/referrals", {
+              axios.get("https://personal-jpgy.onrender.com/api/referrals", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
               })
             );
           }
           if (activeTab === "milestones") {
             requests.push(
-              axios.get("http://localhost:5000/api/referrals/milestones", {
+              axios.get("https://personal-jpgy.onrender.com/api/referrals/milestones", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
               })
             );
@@ -137,7 +137,7 @@ const Profile = () => {
             setReferrals(responses[0].data);
             if (!responses[0].data.code && userPlans.length > 0) {
               try {
-                const userResponse = await axios.get("http://localhost:5000/api/users/me", {
+                const userResponse = await axios.get("https://personal-jpgy.onrender.com/api/users/me", {
                   headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
                 });
                 if (userResponse.data.referralCode) {
@@ -191,13 +191,13 @@ const Profile = () => {
         return;
       }
       await axios.post(
-        "http://localhost:5000/api/wallet/withdraw",
+        "https://personal-jpgy.onrender.com/api/wallet/withdraw",
         { amount: wallet.withdrawable },
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } },
       );
       setWithdrawalRequested(true);
       toast.success("Withdrawal request submitted successfully");
-      const walletResponse = await axios.get("http://localhost:5000/api/wallet", {
+      const walletResponse = await axios.get("https://personal-jpgy.onrender.com/api/wallet", {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       setWallet(walletResponse.data);
@@ -353,7 +353,7 @@ const Profile = () => {
                 <button
                   onClick={async () => {
                     try {
-                      const walletResponse = await axios.get("http://localhost:5000/api/wallet", {
+                      const walletResponse = await axios.get("https://personal-jpgy.onrender.com/api/wallet", {
                         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
                       });
                       setWallet(walletResponse.data);

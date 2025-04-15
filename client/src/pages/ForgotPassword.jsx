@@ -18,7 +18,7 @@ const ForgotPassword = () => {
     setLoading(true);
 
     try {
-      await axios.post("http://localhost:5000/api/auth/forgot-password", { email });
+      await axios.post("https://personal-jpgy.onrender.com/api/auth/forgot-password", { email });
       toast.success("Reset link sent to your email! It’s valid for 10 minutes.");
       setEmail("");
     } catch (error) {

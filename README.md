@@ -57,7 +57,7 @@ npm install
 npm run dev
 ```
 
-> App will run on: [http://localhost:3000](http://localhost:3000) ✅
+> App will run on: [https://minedaily.vercel.app](https://minedaily.vercel.app) ✅
 
 ---
 
@@ -83,7 +83,7 @@ Start the server:
 node server.js
 ```
 
-> Server runs at: [http://localhost:5000](http://localhost:5000)
+> Server runs at: [https://personal-jpgy.onrender.com](https://personal-jpgy.onrender.com)
 
 ✅ Ensure MongoDB is running before starting the backend
 

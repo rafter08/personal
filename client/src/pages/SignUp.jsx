@@ -70,7 +70,7 @@ const SignUp = () => {
     if (validateForm()) {
       setLoading(true);
       try {
-        const response = await axios.post("http://localhost:5000/api/auth/register", formData);
+        const response = await axios.post("https://personal-jpgy.onrender.com/api/auth/register", formData);
         localStorage.setItem("token", response.data.token);
         toast.success("Registered successfully! Redirecting to login...", {
           position: "top-right",

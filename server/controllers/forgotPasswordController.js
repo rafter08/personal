@@ -15,7 +15,7 @@ exports.forgotPassword = async (req, res) => {
     user.resetPasswordToken = resetToken;
     user.resetPasswordExpires = Date.now() + 10 * 60 * 1000; 
     await user.save();
-    const resetUrl = `http://localhost:3000/reset-password/${resetToken}`;
+    const resetUrl = `https://minedaily.vercel.app/reset-password/${resetToken}`;
     await sendResetEmail(user.email, resetUrl);
 
     res.status(200).json({ message: "Reset link sent to your email." });

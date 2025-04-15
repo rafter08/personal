@@ -70,7 +70,7 @@ const Payment = () => {
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       const response = await axios.post(
-        "http://localhost:5000/api/plans/purchase",
+        "https://personal-jpgy.onrender.com/api/plans/purchase",
         {
           planId: plan.id,
           amount: plan.price,

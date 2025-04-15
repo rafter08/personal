@@ -23,7 +23,7 @@ const ResetPassword = () => {
     const validateToken = async () => {
       await new Promise((resolve) => setTimeout(resolve, 3000));
       try {
-        await axios.get(`http://localhost:5000/api/auth/validate-reset-token/${token}`);
+        await axios.get(`https://personal-jpgy.onrender.com/api/auth/validate-reset-token/${token}`);
         setIsTokenValid(true);
       } catch (error) {
         setIsTokenValid(false);
@@ -49,7 +49,7 @@ const ResetPassword = () => {
 
     setLoading(true);
     try {
-      await axios.post(`http://localhost:5000/api/auth/reset-password/${token}`, {
+      await axios.post(`https://personal-jpgy.onrender.com/api/auth/reset-password/${token}`, {
         password: formData.password,
       });
       toast.success("Password reset successfully! Redirecting to sign in...");
