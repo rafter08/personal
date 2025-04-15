@@ -60,19 +60,6 @@ const Profile = () => {
       setReferrals(referralsResponse.data);
       setMilestones(milestonesResponse.data);
 
-      if (!referralsResponse.data.code && plansResponse.data.length > 0) {
-        try {
-          const userResponse = await axios.get("https://personal-jpgy.onrender.com/api/users/me", {
-            headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-          });
-          if (userResponse.data.referralCode) {
-            setReferrals((prev) => ({ ...prev, code: userResponse.data.referralCode }));
-          }
-        } catch (err) {
-          console.error("Error fetching user referral code:", err.message);
-        }
-      }
-
       console.log("Fetched profile data:", {
         plans: plansResponse.data.length,
         referrals: referralsResponse.data,
@@ -135,18 +122,6 @@ const Profile = () => {
           }
           if (activeTab === "referrals") {
             setReferrals(responses[0].data);
-            if (!responses[0].data.code && userPlans.length > 0) {
-              try {
-                const userResponse = await axios.get("https://personal-jpgy.onrender.com/api/users/me", {
-                  headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-                });
-                if (userResponse.data.referralCode) {
-                  setReferrals((prev) => ({ ...prev, code: userResponse.data.referralCode }));
-                }
-              } catch (err) {
-                console.error("Error fetching user referral code:", err.message);
-              }
-            }
           }
           if (activeTab === "milestones") {
             setMilestones(responses[0].data);
@@ -193,7 +168,7 @@ const Profile = () => {
       await axios.post(
         "https://personal-jpgy.onrender.com/api/wallet/withdraw",
         { amount: wallet.withdrawable },
-        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } },
+        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
       setWithdrawalRequested(true);
       toast.success("Withdrawal request submitted successfully");
@@ -652,7 +627,9 @@ const Profile = () => {
                       </div>
                     ) : (
                       <div>
-                        <p className="text-sm text-gray-400 mb-2">Referred Users: {milestones[tier].users}/{milestones[tier].targetUsers}</p>
+                        <p className="text-sm text-gray-400 mb-2">
+                          Referred Users: {milestones[tier].users}/{milestones[tier].targetUsers}
+                        </p>
                         <div className="w-24 h-24 mx-auto">
                           <CircularProgressbar
                             value={(milestones[tier].users / milestones[tier].targetUsers) * 100}
